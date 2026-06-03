@@ -1,5 +1,5 @@
-local user = "YOUR_USERNAME"
-local repo = "YOUR_REPO"
+local user = "Bridged1707"
+local repo = "create-pastebinscripts"
 local branch = "main"
 local folder = "reactor"
 
