@@ -12,25 +12,25 @@ return {
             mode = "full"
         },
 
+        reactor_fuel = {
+            enabled = true,
+            monitor = "monitor_1",
+            textScale = 0.5,
+            mode = "reactor_fuel"
+        },
+
         stress_alerts = {
             enabled = false,
-            monitor = "monitor_1",
+            monitor = "monitor_2",
             textScale = 1,
             mode = "alerts"
         },
 
         stress_summary = {
             enabled = false,
-            monitor = "monitor_2",
+            monitor = "monitor_3",
             textScale = 1,
             mode = "summary"
-        },
-
-        reactor_fuel = {
-            enabled = true,
-            monitor = "monitor_1",
-            textScale = 0.5,
-            mode = "reactor_fuel"
         }
     }
 }
