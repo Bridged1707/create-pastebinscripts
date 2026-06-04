@@ -7,14 +7,14 @@ return {
     outputs = {
         stress_full = {
             enabled = true,
-            monitor = "monitor_2",
+            monitor = "monitor_5",
             textScale = 0.5,
             mode = "full"
         },
 
         reactor_fuel = {
             enabled = true,
-            monitor = "monitor_3",
+            monitor = "monitor_6",
             textScale = 0.5,
             mode = "reactor_fuel"
         },
