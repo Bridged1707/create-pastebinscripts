@@ -39,7 +39,7 @@ return {
         {
             id = "reactor_2",
             label = "Reactor 2",
-            enabled = true,
+            enabled = false,
             fuelVault = "create:item_vault_2",
 
             primaryStressometer = "Create_Stressometer_3",
@@ -61,7 +61,7 @@ return {
         {
             id = "reactor_3",
             label = "Reactor 3",
-            enabled = true,
+            enabled = false,
             fuelVault = "create:item_vault_3",
 
             primaryStressometer = "Create_Stressometer_5",
@@ -83,7 +83,7 @@ return {
         {
             id = "reactor_4",
             label = "Reactor 4",
-            enabled = true,
+            enabled = false,
             fuelVault = "create:item_vault_4",
 
             primaryStressometer = "Create_Stressometer_7",
