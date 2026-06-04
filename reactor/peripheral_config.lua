@@ -20,8 +20,8 @@ return {
             enabled = true,
             fuelVault = "create:item_vault_2",
 
-            primaryStressometer = "Create_Stressometer_1",
-            backupStressometer = "Create_Stressometer_2",
+            primaryStressometer = "create_stressometer_1",
+            backupStressometer = "create_stressometer_2",
             primarySpeedometer = "create_speedometer_0",
             backupSpeedometer = "create_speedometer_4",
 
