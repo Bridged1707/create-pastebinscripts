@@ -1,36 +1,65 @@
-print("ALL PERIPHERALS")
-print("===============")
+local config = require("peripheral_config")
 
-for _, name in ipairs(peripheral.getNames()) do
-    local pType = peripheral.getType(name)
-    local methods = peripheral.getMethods(name) or {}
+local reactor = config.reactors[1]
 
-    print()
-    print("Name: " .. name)
-    print("Type: " .. tostring(pType))
+local function probe(label, configuredName)
+    local lines = {}
 
-    local hasStress = false
-    local hasCapacity = false
+    table.insert(lines, label)
+    table.insert(lines, "Configured: " .. tostring(configuredName))
 
-    for _, method in ipairs(methods) do
-        if method == "getStress" then
-            hasStress = true
-        elseif method == "getStressCapacity" then
-            hasCapacity = true
+    local wrapped = peripheral.wrap(configuredName)
+
+    if not wrapped then
+        table.insert(lines, "Result: MISSING")
+        table.insert(lines, "")
+        return lines
+    end
+
+    table.insert(lines, "Type: " .. tostring(peripheral.getType(configuredName)))
+
+    if type(wrapped.getStress) ~= "function" then
+        table.insert(lines, "getStress: MISSING METHOD")
+    else
+        local ok, value = pcall(wrapped.getStress)
+
+        if ok then
+            table.insert(lines, "getStress: " .. tostring(value))
+        else
+            table.insert(lines, "getStress ERROR: " .. tostring(value))
         end
     end
 
-    if name:lower():find("stress") or hasStress or hasCapacity then
-        print("Methods: " .. textutils.serialize(methods))
+    if type(wrapped.getStressCapacity) ~= "function" then
+        table.insert(lines, "getStressCapacity: MISSING METHOD")
+    else
+        local ok, value = pcall(wrapped.getStressCapacity)
 
-        if hasStress then
-            local ok, value = pcall(peripheral.call, name, "getStress")
-            print("getStress: " .. tostring(ok) .. " / " .. tostring(value))
-        end
-
-        if hasCapacity then
-            local ok, value = pcall(peripheral.call, name, "getStressCapacity")
-            print("getStressCapacity: " .. tostring(ok) .. " / " .. tostring(value))
+        if ok then
+            table.insert(lines, "getStressCapacity: " .. tostring(value))
+        else
+            table.insert(lines, "getStressCapacity ERROR: " .. tostring(value))
         end
     end
+
+    table.insert(lines, "")
+
+    return lines
 end
+
+local output = {}
+
+for _, line in ipairs(probe("PRIMARY STRESSOMETER", reactor.primaryStressometer)) do
+    table.insert(output, line)
+end
+
+for _, line in ipairs(probe("BACKUP STRESSOMETER", reactor.backupStressometer)) do
+    table.insert(output, line)
+end
+
+local file = fs.open("stress_probe.txt", "w")
+file.write(table.concat(output, "\n"))
+file.close()
+
+print("Saved results to stress_probe.txt")
+print("Run: edit stress_probe.txt")
