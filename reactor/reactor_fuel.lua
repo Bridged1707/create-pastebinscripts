@@ -6,10 +6,7 @@ local outputConfig = nil
 local monitor = nil
 
 local function findOutputConfig()
-    if not monitorConfig.outputs then
-        return nil
-    end
-
+    if not monitorConfig.outputs then return nil end
     return monitorConfig.outputs.reactor_fuel
 end
 
@@ -20,11 +17,7 @@ end
 
 local function padRight(text, length)
     text = tostring(text)
-
-    if #text >= length then
-        return text:sub(1, length)
-    end
-
+    if #text >= length then return text:sub(1, length) end
     return text .. string.rep(" ", length - #text)
 end
 
@@ -171,17 +164,12 @@ local function buildData()
     for _, entry in ipairs(fuelConfig.vaults or {}) do
         local data = readVault(entry)
         table.insert(results, data)
-
         totalFuel = totalFuel + data.totalCount
 
         if data.online then
             online = online + 1
-
-            if data.status == "LOW" then
-                low = low + 1
-            elseif data.status == "CRIT" then
-                critical = critical + 1
-            end
+            if data.status == "LOW" then low = low + 1
+            elseif data.status == "CRIT" then critical = critical + 1 end
         else
             missing = missing + 1
         end
@@ -189,53 +177,27 @@ local function buildData()
 
     local expectedTotal = (fuelConfig.expectedFuelPerVault or 1024) * #(fuelConfig.vaults or {})
     local totalPercent = 0
-
-    if expectedTotal > 0 then
-        totalPercent = totalFuel / expectedTotal * 100
-    end
+    if expectedTotal > 0 then totalPercent = totalFuel / expectedTotal * 100 end
 
     return {
-        results = results,
-        totalFuel = totalFuel,
-        expectedTotal = expectedTotal,
-        totalPercent = totalPercent,
-        online = online,
-        missing = missing,
-        low = low,
-        critical = critical
+        results = results, totalFuel = totalFuel, expectedTotal = expectedTotal,
+        totalPercent = totalPercent, online = online, missing = missing,
+        low = low, critical = critical
     }
 end
 
 local function renderDashboard(target, data)
     local y = 1
-
     clearTarget(target)
 
-    writeLine(target, y, "CREATE NEW AGE REACTOR FUEL")
-    y = y + 1
-    writeLine(target, y, "----------------------------")
-    y = y + 1
-
-    writeLine(
-        target,
-        y,
-        padRight("Vault", 16) ..
-        padRight("Reactor", 12) ..
-        padRight("Fuel", 10) ..
-        padRight("Target", 10) ..
-        padRight("Fill", 8) ..
-        "Status"
-    )
-    y = y + 1
-
-    writeLine(target, y, string.rep("-", 64))
-    y = y + 1
+    writeLine(target, y, "CREATE NEW AGE REACTOR FUEL") y = y + 1
+    writeLine(target, y, "----------------------------") y = y + 1
+    writeLine(target, y, padRight("Vault", 16) .. padRight("Reactor", 12) .. padRight("Fuel", 10) .. padRight("Target", 10) .. padRight("Fill", 8) .. "Status") y = y + 1
+    writeLine(target, y, string.rep("-", 64)) y = y + 1
 
     for _, row in ipairs(data.results) do
         if row.online then
-            writeLine(
-                target,
-                y,
+            writeLine(target, y,
                 padRight(row.label, 16) ..
                 padRight(row.reactor, 12) ..
                 padRight(tostring(row.totalCount), 10) ..
@@ -244,9 +206,7 @@ local function renderDashboard(target, data)
                 row.status
             )
         else
-            writeLine(
-                target,
-                y,
+            writeLine(target, y,
                 padRight(row.label, 16) ..
                 padRight(row.reactor, 12) ..
                 padRight("--", 10) ..
@@ -255,30 +215,19 @@ local function renderDashboard(target, data)
                 row.error
             )
         end
-
         y = y + 1
     end
 
     y = y + 1
-
-    writeLine(target, y, "SUMMARY")
-    y = y + 1
-    writeLine(target, y, "-------")
-    y = y + 1
-    writeLine(target, y, "Online:       " .. data.online .. "/" .. #(fuelConfig.vaults or {}))
-    y = y + 1
-    writeLine(target, y, "Missing:      " .. data.missing)
-    y = y + 1
-    writeLine(target, y, "Total Fuel:   " .. data.totalFuel)
-    y = y + 1
-    writeLine(target, y, "Target Total: " .. data.expectedTotal)
-    y = y + 1
-    writeLine(target, y, "Total Fill:   " .. round(data.totalPercent, 1) .. "%")
-    y = y + 1
-    writeLine(target, y, "Low Vaults:   " .. data.low)
-    y = y + 1
-    writeLine(target, y, "Critical:     " .. data.critical)
-    y = y + 2
+    writeLine(target, y, "SUMMARY") y = y + 1
+    writeLine(target, y, "-------") y = y + 1
+    writeLine(target, y, "Online:       " .. data.online .. "/" .. #(fuelConfig.vaults or {})) y = y + 1
+    writeLine(target, y, "Missing:      " .. data.missing) y = y + 1
+    writeLine(target, y, "Total Fuel:   " .. data.totalFuel) y = y + 1
+    writeLine(target, y, "Target Total: " .. data.expectedTotal) y = y + 1
+    writeLine(target, y, "Total Fill:   " .. round(data.totalPercent, 1) .. "%") y = y + 1
+    writeLine(target, y, "Low Vaults:   " .. data.low) y = y + 1
+    writeLine(target, y, "Critical:     " .. data.critical) y = y + 2
 
     if data.missing > 0 then
         writeLine(target, y, "ACTION: One or more fuel vaults are missing.")
@@ -326,10 +275,7 @@ end
 
 local function render(target, data)
     local mode = "reactor_fuel"
-
-    if outputConfig and outputConfig.mode then
-        mode = outputConfig.mode
-    end
+    if outputConfig and outputConfig.mode then mode = outputConfig.mode end
 
     if mode == "reactor_fuel_details" then
         renderDetails(target, data)
@@ -347,15 +293,11 @@ local function loadMonitor()
     end
 
     monitor = peripheral.wrap(outputConfig.monitor)
-
-    if monitor and monitor.setTextScale then
-        monitor.setTextScale(outputConfig.textScale or 0.5)
-    end
+    if monitor and monitor.setTextScale then monitor.setTextScale(outputConfig.textScale or 0.5) end
 end
 
-loadMonitor()
-
 while true do
+    loadMonitor()
     local data = buildData()
 
     render(term, data)
