@@ -283,7 +283,8 @@ while true do
     if monitor then
         render(monitor, data)
     else
-        term.setCursorPos(1, 20)
+        local _, h = term.getSize()
+        term.setCursorPos(1, h)
         term.clearLine()
         print("Monitor output disabled or missing.")
     end
