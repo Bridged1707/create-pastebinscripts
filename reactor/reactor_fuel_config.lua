@@ -22,17 +22,16 @@ return {
         }
     },
 
-    -- If empty, the script counts all items in the vault as fuel.
-    -- If you want only specific fuel items counted, add item IDs here.
-    -- Example:
-    -- fuelItems = {
-    --     ["create_new_age:thorium"] = true,
-    --     ["create_new_age:radioactive_thorium"] = true
-    -- }
-    fuelItems = {"create_new_age:nuclear_fuel"},
+    -- Leave this empty to count every item in the vault as fuel:
+    -- fuelItems = {},
+    --
+    -- You can use either list style:
+    -- fuelItems = { "create_new_age:nuclear_fuel" },
+    --
+    -- or map style:
+    -- fuelItems = { ["create_new_age:nuclear_fuel"] = true },
+    fuelItems = { "create_new_age:nuclear_fuel" },
 
-    -- Used only for rough warnings.
-    -- Item vault capacity depends on size, so this is just your chosen target.
     expectedFuelPerVault = 1024,
 
     lowFuelPercent = 25,
