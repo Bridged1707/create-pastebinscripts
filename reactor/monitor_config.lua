@@ -11,26 +11,26 @@ return {
     outputs = {
         stress_full = {
             enabled = true,
-            monitor = "monitor_2",
+            monitor = "monitor_4",
             textScale = 0.5
         },
 
         reactor_fuel = {
             enabled = true,
-            monitor = "monitor_3",
+            monitor = "monitor_6",
             textScale = 0.5
         },
 
         reactor_fuel_graph = {
             enabled = false,
-            monitor = "monitor_4",
+            monitor = "monitor_5",
             textScale = 0.5,
             sampleSeconds = 30,
             historyPoints = 120
         },
 
         stress_graph = {
-            enabled = false,
+            enabled = true,
             monitor = "monitor_5",
             textScale = 0.5,
             sampleSeconds = 30,
