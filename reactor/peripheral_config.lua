@@ -18,22 +18,22 @@ return {
             id = "reactor_1",
             label = "Reactor 1",
             enabled = true,
-            fuelVault = "create:item_vault_1",
+            fuelVault = "create:item_vault_2",
 
             primaryStressometer = "Create_Stressometer_1",
             backupStressometer = "Create_Stressometer_2",
-            primarySpeedometer = "CHANGE_ME_R1_PRIMARY_SPEEDOMETER",
-            backupSpeedometer = "CHANGE_ME_R1_BACKUP_SPEEDOMETER",
+            primarySpeedometer = "create_speedometer_0",
+            backupSpeedometer = "create_speedometer_4",
 
             fuelChutes = {
-                { label = "Rod 1", relay = { peripheral = "CHANGE_ME_R1_CHUTE_1_RELAY", outputSide = "back", poweredMeansEnabled = false } },
-                { label = "Rod 2", relay = { peripheral = "CHANGE_ME_R1_CHUTE_2_RELAY", outputSide = "back", poweredMeansEnabled = false } },
-                { label = "Rod 3", relay = { peripheral = "CHANGE_ME_R1_CHUTE_3_RELAY", outputSide = "back", poweredMeansEnabled = false } }
+                { label = "Rod 1", relay = { peripheral = "redstone_relay_6", outputSide = "back", poweredMeansEnabled = false } },
+                { label = "Rod 2", relay = { peripheral = "redstone_relay_7", outputSide = "back", poweredMeansEnabled = false } },
+                { label = "Rod 3", relay = { peripheral = "redstone_relay_8", outputSide = "back", poweredMeansEnabled = false } }
             },
 
             clutches = {
-                primary = { label = "Primary Pump", relay = { peripheral = "CHANGE_ME_R1_PRIMARY_CLUTCH_RELAY", outputSide = "back", poweredMeansEnabled = false } },
-                backup = { label = "Backup Pump", relay = { peripheral = "CHANGE_ME_R1_BACKUP_CLUTCH_RELAY", outputSide = "back", poweredMeansEnabled = false } }
+                primary = { label = "Primary Pump", relay = { peripheral = "redstone_relay_1", outputSide = "back", poweredMeansEnabled = false } },
+                backup = { label = "Backup Pump", relay = { peripheral = "redstone_relay_2", outputSide = "back", poweredMeansEnabled = false } }
             }
         },
         {
