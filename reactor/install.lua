@@ -18,7 +18,8 @@ local files = {
     "speed_graph.lua",
     "scan_peripherals.lua",
     "check_vault_items.lua",
-    "check_rotation.lua"
+    "check_rotation.lua",
+    "probe_stress.lua"
 }
 
 local baseUrl = "https://raw.githubusercontent.com/" .. user .. "/" .. repo .. "/" .. branch .. "/" .. folder .. "/"
