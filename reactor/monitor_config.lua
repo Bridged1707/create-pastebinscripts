@@ -10,7 +10,7 @@ return {
 
     outputs = {
         stress_full = {
-            enabled = true,
+            enabled = false,
             monitor = "monitor_4",
             textScale = 0.5
         },
@@ -23,8 +23,8 @@ return {
 
 
         accumulators = {
-            enabled = false,
-            monitor = "monitor_7",
+            enabled = true,
+            monitor = "monitor_4",
             textScale = 0.5
         },
 
